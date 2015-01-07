@@ -1,4 +1,0 @@
-Exam
-====
-
-Exam Manager System
