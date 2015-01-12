@@ -1,4 +1,4 @@
-﻿@charset "utf-8";
+@charset "utf-8";
 /* CSS Document */
 /***
  * uimaker
@@ -130,6 +130,7 @@ h2{font-weight:normal;}
 .pagepre{background:url(../images/pre.gif) no-repeat center center; width:31px; height:28px;}
 .pagenxt{background:url(../images/next.gif) no-repeat center center; width:31px; height:28px;}
 
+
 /*index*/
 .mainindex{padding:20px; overflow:hidden;}
 .welinfo{height:32px; line-height:32px; padding-bottom:8px;}
@@ -139,7 +140,7 @@ h2{font-weight:normal;}
 .welinfo a:hover{color:#F60;}
 .welinfo i{font-style:normal; padding-left:8px;}
 .xline{border-bottom:solid 1px #dfe9ee; height:5px;}
-.iconlist{padding-left:20px; overflow:hidden;}
+.iconlist{padding-left:40px; overflow:hidden;}
 .iconlist li{text-align:center; float:left; margin-right:25px; margin-top:25px;}
 .iconlist li p{line-height:25px;}
 .ibox{clear:both; padding-left:40px; padding-top:18px; overflow:hidden; padding-bottom:18px;}
@@ -184,10 +185,10 @@ h2{font-weight:normal;}
 .forminfo{padding-left:23px;}
 .forminfo li{margin-bottom:13px; clear:both;}
 .forminfo li label{width:86px;line-height:34px; display:block; float:left;}
-.forminfo li span{width:586px;line-height:34px; display:block; float:left;}
 .forminfo li i{color:#7f7f7f; padding-left:20px; font-style:normal;}
 .forminfo li cite{display:block; padding-top:10px;}
 .dfinput{width:345px; height:32px; line-height:32px; border-top:solid 1px #a7b5bc; border-left:solid 1px #a7b5bc; border-right:solid 1px #ced9df; border-bottom:solid 1px #ced9df; background:url(../images/inputbg.gif) repeat-x; text-indent:10px;}
+.radinput{width:80px; height:20px;line-height:32px; border-top:solid 1px #a7b5bc; border-left:solid 1px #a7b5bc; border-right:solid 1px #ced9df; border-bottom:solid 1px #ced9df; background:url(../images/inputbg.gif) repeat-x; text-indent:10px;   }
 .textinput{border-top:solid 1px #a7b5bc; border-left:solid 1px #a7b5bc; border-right:solid 1px #ced9df; border-bottom:solid 1px #ced9df; background:url(../images/inputbg.gif) repeat-x; padding:10px; width:504px; height:135px; line-height:20px; overflow:hidden;}
 .btn{width:137px;height:35px; background:url(../images/btnbg.png) no-repeat; font-size:14px;font-weight:bold;color:#fff; cursor:pointer;}
 
@@ -296,3 +297,8 @@ h2{font-weight:normal;}
 .seachform li label{padding-right:10px; float:left; line-height:32px;}
 .scinput{width:150px; height:32px; line-height:32px; border-top:solid 1px #a7b5bc; border-left:solid 1px #a7b5bc; border-right:solid 1px #ced9df; border-bottom:solid 1px #ced9df; background:url(../images/inputbg.gif) repeat-x; text-indent:10px;}
 .scbtn{width:85px;height:35px; background:url(../images/btnbg.png) no-repeat center; font-size:14px;font-weight:bold;color:#fff; cursor:pointer;border-radius:3px; behavior:url(js/pie.htc);}
+.search{margin:10px 0 1px 5px;}
+.key{width:140px;height:22px;line-height:22px;margin:1px 0 1px 5px;border:0;float:left;}
+.key[type="text"]:focus{outline:none;}
+.sub{float:right;width:30px;height:24px;background:url(../images/search_bg.gif) no-repeat right 0;border:none;cursor:pointer;}
+.sub span{display:none;}

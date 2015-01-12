@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="__APP__/Teacher/Practicum/index">课程设计管理</a></li>
+    <li><a href="__APP__/Teacher/Practicum/view/id/{$data.id}">{$data.prcName}</a></li>
+    </ul>
+    </div>
+	<ul class="forminfo">
+		<li>
+			<label>课程设计名称</label>
+			<span>{$data.prcName}</span>
+		</li>
+		<li>
+			<label>课程设计要求</label>
+			<span>{$data.content}</span>
+		</li>
+		<li>
+			<label>人数限制</label>
+			<span>{$data.limitPeople}</span>
+		</li>
+		<li>
+			<label>进度</label>
+			<span>{$data.percent}%</span>
+		</li>
+		<li>
+			<label>修改时间</label>
+			<span>{$data.updatetime}</span>
+		</li>
+	</ul>    
+
+    <ul class="iconlist" style="margin-top:25px">
+    
+    <li><img src="__PUBLIC__/images/ico01.png" /><p><a href="#">管理设置</a></p></li>
+    <li><img src="__PUBLIC__/images/ico02.png" /><p><a href="#">发布文章</a></p></li>
+    <li><img src="__PUBLIC__/images/ico03.png" /><p><a href="#">数据统计</a></p></li>
+    <li><img src="__PUBLIC__/images/ico04.png" /><p><a href="__APP__/Teacher/PracticumFile/index/id/{$data.id}">文件上传</a></p></li>
+    <li><img src="__PUBLIC__/images/ico05.png" /><p><a href="#">目录管理</a></p></li>
+    <li><img src="__PUBLIC__/images/ico06.png" /><p><a href="#">查询</a></p></li> 
+            
+    </ul>
+    <table class="filetable">
+    
+    <thead>
+    	<tr>
+		<th width="10%">项目编号</th>
+        <th width="25%">项目名称</th>
+		<th width="6%">组长</th>
+        <th width="13%">修改日期</th>
+        <th width="8%">项目组人数</th>
+        <th width="10%">开发语言</th>
+        <th width="8%">未完成文档数</th>
+		<th width="20%">总数</th>
+        </tr>    	
+    </thead>
+    
+    <tbody>
+    <volist id="vo" name="projectlist">
+		<tr>
+		<td>{$vo.pid}</td>
+        <td><a href="__APP__/Teacher/Project/view/id/{$vo.pid}">{$vo.name}</a></td>
+        <td>{$vo.stuName}</td>
+        <td>{$vo.updatetime}</td>
+        <td class="tdlast">{$vo.number}</td>
+		<td>{$vo.language}</td>
+		<td class="tdlast">{$vo.unpassNumber}</td>
+        <td>{$vo.docNumber}</td>
+        </tr>
+	</volist>
+    </tbody>
+    
+    
+    
+    
+    </table>
+    
+    
+    
+   
+
+</body>
+
+</html>
