@@ -1,17 +1,16 @@
-<?php
-return array(
-	'DB_TYPE'   => 'mysql', // 数据库类型
-	'DB_HOST'   => 'localhost', // 服务器地址
-	'DB_NAME'   => 'examination', // 数据库名
-	'DB_USER'   => 'root', // 用户名
-	'DB_PWD'    => '', // 密码
-	'DB_PORT'   => 3306, // 端口
-	'DB_PREFIX' => 'exam_', // 数据库表前缀
-	
-	'TMPL_PARSE_STRING' =>  array( // 添加输出替换
-	'__PUBLIC__' => __ROOT__.'/app/Public'
-    ),
-	'APP_GROUP_LIST' => 'Teacher,Home,Admin,Printer,Dean', //项目分组设定
-	'DEFAULT_GROUP'  => 'Home' //默认分组
-);
+<?php	
+return array ( 
+		'DB_TYPE' => 'mysql',
+		'DB_HOST' => 'localhost',
+		'DB_NAME' => 'examination',
+		'DB_USER' => 'root',
+		'DB_PWD' => '',
+		'DB_PORT' => 3306,
+		'DB_PREFIX' => 'exam_',
+		'TMPL_PARSE_STRING' => array ( 
+							'__PUBLIC__' => '/exam/app/Public', ),
+		'APP_GROUP_LIST' => 'Teacher,Home,Admin,Printer,Dean',
+		'DEFAULT_GROUP' => 'Home',
+		'SYSTEM_STATUS' => 2,
+	);
 ?>

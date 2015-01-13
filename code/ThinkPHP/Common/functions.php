@@ -814,3 +814,31 @@ function think_filter(&$value){
         $value .= ' ';
     }
 }
+
+//自加方法
+
+/* 方法名：		change_status
+** 方法说明：	改变系统状态
+** 参数：		$status 需要改变的状态
+** 返回值：		是否更改
+*/
+function change_status($status = ''){
+	if($status !== ''){
+		$webconfig = F('webconfig','','./App/Conf/');
+		$webconfig['SYSTEM_STATUS'] = $status;
+		F('webconfig',$webconfig,'./App/Conf/');
+		$result = true;
+	}else{
+		$result = false;
+	}
+	return $result;
+}
+/* 方法名：		get_status
+** 方法说明：	获得系统状态
+** 参数：		无
+** 返回值：		当前系统状态
+*/
+function get_status(){
+	$webconfig = F('webconfig','','./App/Conf/');
+	return $webconfig['SYSTEM_STATUS'];
+}

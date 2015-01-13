@@ -28,7 +28,7 @@ class BaseModel extends Model{
 		foreach ( $data as $k => $v ){
 		   if ($k != 0){
 				foreach($field as $kk => $vv){
-					if($vv!='UPDATETIME')	
+					if($vv!='updatetime')
 						$datalist[$k][$vv] = $v[$kk];
 					else 
 						$datalist[$k][$vv] = date("Y-m-d H:i:s");

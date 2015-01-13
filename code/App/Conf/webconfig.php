@@ -1,0 +1,1 @@
+<?php	return array ( 'SYSTEM_STATUS' => 2, );?>
