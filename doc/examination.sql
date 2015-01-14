@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2015-01-13 15:35:56
+Date: 2015-01-14 08:50:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,15 +25,15 @@ CREATE TABLE `exam_arrangement` (
   `cid` char(10) NOT NULL COMMENT '课程编号',
   `classname` varchar(30) NOT NULL COMMENT '班级名称',
   `classnumber` int(3) NOT NULL COMMENT '班级人数',
+  `status` tinyint(1) NOT NULL COMMENT '状态',
+  `bid` int(10) DEFAULT NULL COMMENT '题库编号',
   `updatetime` datetime NOT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `tid` (`tid`),
+  KEY `cid` (`cid`),
+  CONSTRAINT `cid` FOREIGN KEY (`cid`) REFERENCES `exam_course` (`id`),
+  CONSTRAINT `tid` FOREIGN KEY (`tid`) REFERENCES `exam_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of exam_arrangement
--- ----------------------------
-INSERT INTO `exam_arrangement` VALUES ('1', '123456', '2', '软件12-1', '20', '2015-01-13 15:27:49');
-INSERT INTO `exam_arrangement` VALUES ('2', '123456', '2', '软件12-2', '35', '2015-01-13 15:27:49');
 
 -- ----------------------------
 -- Table structure for exam_bank
@@ -50,10 +50,6 @@ CREATE TABLE `exam_bank` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of exam_bank
--- ----------------------------
-
--- ----------------------------
 -- Table structure for exam_course
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_course`;
@@ -64,28 +60,6 @@ CREATE TABLE `exam_course` (
   `updatetime` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of exam_course
--- ----------------------------
-INSERT INTO `exam_course` VALUES ('2', 'JSP程序设计', '1', '2015-01-13 14:26:24');
-
--- ----------------------------
--- Table structure for exam_exam
--- ----------------------------
-DROP TABLE IF EXISTS `exam_exam`;
-CREATE TABLE `exam_exam` (
-  `cid` char(10) NOT NULL COMMENT '课程编号',
-  `type` tinyint(1) NOT NULL COMMENT '考试性质',
-  `status` tinyint(1) NOT NULL COMMENT '考试状态',
-  `bid` int(10) NOT NULL COMMENT '题库编号',
-  `updatetime` datetime NOT NULL COMMENT '修改时间',
-  PRIMARY KEY (`cid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of exam_exam
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for exam_system
@@ -99,27 +73,6 @@ CREATE TABLE `exam_system` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of exam_system
--- ----------------------------
-INSERT INTO `exam_system` VALUES ('1', '软件工程系', '2015-01-12 15:29:23');
-INSERT INTO `exam_system` VALUES ('2', '基础部', '2015-01-12 15:30:58');
-
--- ----------------------------
--- Table structure for exam_us
--- ----------------------------
-DROP TABLE IF EXISTS `exam_us`;
-CREATE TABLE `exam_us` (
-  `uid` char(8) NOT NULL COMMENT '用户编号',
-  `sid` char(8) NOT NULL COMMENT '系部编号',
-  `updatetime` datetime NOT NULL COMMENT '修改时间',
-  PRIMARY KEY (`uid`,`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of exam_us
--- ----------------------------
-
--- ----------------------------
 -- Table structure for exam_user
 -- ----------------------------
 DROP TABLE IF EXISTS `exam_user`;
@@ -128,14 +81,12 @@ CREATE TABLE `exam_user` (
   `name` varchar(12) NOT NULL COMMENT '用户姓名',
   `password` char(32) NOT NULL COMMENT '用户密码',
   `type` tinyint(1) NOT NULL COMMENT '用户类型',
+  `sid` char(8) NOT NULL DEFAULT '0' COMMENT '对应系部',
   `updatetime` datetime NOT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `sid` (`sid`),
+  CONSTRAINT `sid` FOREIGN KEY (`sid`) REFERENCES `exam_system` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of exam_user
--- ----------------------------
-INSERT INTO `exam_user` VALUES ('123456', '李老师', '123456', '2', '2015-01-13 14:27:06');
 
 -- ----------------------------
 -- View structure for exam_arrangementview
