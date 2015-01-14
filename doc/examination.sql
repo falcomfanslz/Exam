@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2015-01-14 08:50:05
+Date: 2015-01-14 18:43:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `exam_arrangement` (
   `cid` char(10) NOT NULL COMMENT '课程编号',
   `classname` varchar(30) NOT NULL COMMENT '班级名称',
   `classnumber` int(3) NOT NULL COMMENT '班级人数',
-  `status` tinyint(1) NOT NULL COMMENT '状态',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
   `bid` int(10) DEFAULT NULL COMMENT '题库编号',
   `updatetime` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`),
@@ -120,3 +120,24 @@ exam_course.updatetime
 FROM
 exam_course
 INNER JOIN exam_system ON exam_system.id = exam_course.sid ;
+
+-- ----------------------------
+-- View structure for exam_exam
+-- ----------------------------
+DROP VIEW IF EXISTS `exam_exam`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `exam_exam` AS SELECT
+exam_arrangement.cid,
+exam_course.`name` AS coursename,
+exam_course.sid,
+exam_system.`name` AS systemname,
+GROUP_CONCAT(exam_arrangement.classname) AS classname,
+Sum(exam_arrangement.classnumber) AS classnumber,
+exam_arrangement.`status`,
+exam_arrangement.bid,
+exam_arrangement.updatetime
+FROM
+exam_arrangement
+INNER JOIN exam_course ON exam_arrangement.cid = exam_course.id
+INNER JOIN exam_system ON exam_system.id = exam_course.sid
+GROUP BY
+exam_arrangement.tid ;
