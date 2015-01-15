@@ -8,9 +8,8 @@ return array (
 		'DB_PORT' => 3306,
 		'DB_PREFIX' => 'exam_',
 		'TMPL_PARSE_STRING' => array ( 
-							'__PUBLIC__' => '/exam/app/Public', ),
+							'__PUBLIC__' => __ROOT__.'/App/Public', ),
 		'APP_GROUP_LIST' => 'Teacher,Home,Admin,Printer,Dean',
 		'DEFAULT_GROUP' => 'Home',
-		'SYSTEM_STATUS' => 2,
 	);
 ?>
