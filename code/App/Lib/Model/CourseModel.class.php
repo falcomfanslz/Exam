@@ -22,7 +22,7 @@ class CourseModel extends BaseModel {
 	/* 方法名：		delete
 	** 方法说明：	加入了删除文件夹功能
 	** 参数：		$id 课程编号
-	** 返回值：		加入结果
+	** 返回值：		删除结果
 	*/
 	public function delete($id){
 		//调用父类add方法

@@ -29,6 +29,12 @@ class BaseAction extends Action{
 		$upload->maxSize  = 3145728 ;// 设置附件上传大小
 		$upload->allowExts  = array($type);// 设置附件上传类型
 		$upload->savePath =  './Uploads/'.$savepath;// 设置附件上传目录
+		
+		//若文件夹不存在则创建该文件夹
+		if(!file_exists($upload->savePath)){
+			mkdir($upload->savePath,0777);
+		}
+		
 		if(!$upload->upload()) {// 上传错误提示错误信息
 			$this->error($upload->getErrorMsg());
 		}else{// 上传成功 获取上传文件信息
@@ -91,5 +97,28 @@ class BaseAction extends Action{
 			$this->error('文件录入发生错误！');
 		}
 
+	}
+	/* 方法名：		downloadFile
+	** 方法说明：	下载文件的通用方法
+	** 参数：		$path 下载的文件所在地址 $filename 下载的文件名
+	** 返回值：		是否删除
+	*/
+	Protected function downloadFile($path,$filename){
+		if(file_exists($path)) { 
+			header('Content-Description: File Transfer'); 
+			header('Content-Type: application/octet-stream'); 
+			header('Content-Disposition: attachment; filename='.rawurlencode($filename)); 
+			header('Content-Transfer-Encoding: binary'); 
+			header('Expires: 0'); 
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0'); 
+			header('Pragma: public'); 
+			header('Content-Length: ' . filesize($path)); 
+			ob_clean(); 
+			flush();
+			readfile($path); 
+			exit; 
+		}else{
+			$this->error('无法下载！');
+		}
 	}
 }

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="__APP__/Admin/Exam/index">考试管理</a></li>
+    <li><a href="__APP__/Admin/Exam/view/id/{$data.cid}">{$data.coursename}</a></li>
+    </ul>
+    </div>
+	<ul class="forminfo">
+		<li>
+			<label>课程编号</label>
+			<span>{$data.cid}</span>
+		</li>
+		<li>
+			<label>考试名称</label>
+			<span>{$data.coursename}</span>
+		</li>
+		<li>
+			<label>所属系别</label>
+			<span>{$data.systemname}</span>
+		</li>
+		<li>
+			<label>系主任</label>
+			<span>{$data.deanname}</span>
+		</li>
+		<li>
+			<label>考试班级</label>
+			<span>{$data.classname}</span>
+		</li>
+		<li>
+			<label>考试人数</label>
+			<span>{$data.classnumber}</span>
+		</li>
+		<li>
+			<label>项目状态</label>
+			<span>
+			<switch name="data.status" id="type">
+				<case value="0">准备考试阶段</case>
+				<case value="1">已打印状态</case>
+				<case value="2">未通过状态</case>
+				<case value="3">已通过状态</case>
+				<default />出错！
+			</switch></span>
+		</li>
+	</ul>
+    <table class="filetable">
+    
+    <thead>
+    	<tr>
+        <th width="10%">试卷编号</th>
+        <th width="20%">存储文件名</th>
+        <th width="25%">教师编号</th>
+        <th width="25%">教师姓名</th>
+        <th width="20%">修改时间</th>
+        </tr>    	
+    </thead>
+    
+    <tbody>
+	<volist id="vo" name="need">
+    	<tr class="status{$vo.status}">
+        <td>{$vo.bankid}</td>
+        <td>{$vo.savename}</td>
+        <td>{$vo.tid}</td>
+        <td>{$vo.teachername}</td>
+        <td>{$vo.updatetime}</td>
+        </tr>
+	</volist>
+    </tbody>
+    
+    
+    
+    
+    </table>
+    
+    
+    
+   
+
+</body>
+
+</html>

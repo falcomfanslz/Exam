@@ -7,4 +7,5 @@
 ** 更新原因：	第一次写入
 */
 class ArrangementModel extends BaseModel{
+
 }
