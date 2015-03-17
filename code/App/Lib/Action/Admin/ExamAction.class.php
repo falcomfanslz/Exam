@@ -6,7 +6,7 @@
 ** 更新时间： 	2015/1/15
 ** 更新原因：	第一次写入
 */
-class ExamAction extends BaseAction {
+class ExamAction extends CheckAction {
 	/* 方法名：		index
 	** 方法说明：	显示考试信息主页
 	** 参数：		无

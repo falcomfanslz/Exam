@@ -14,7 +14,7 @@ class ExamAction extends CheckAction {
 	*/
     public function index(){
 		$Need = D('Needview');
-		$this->data = $Need->where('tid=123456 and (status<5 or status is NULL)')->select();//编号暂时是固定的
+		$this->data = $Need->where('tid=11111 and (status<5 or status is NULL)')->select();//编号暂时是固定的
 		$this->display();
     }
 	/* 方法名：		add
@@ -36,7 +36,7 @@ class ExamAction extends CheckAction {
 	*/
 	public function upload_pdf(){
 		$cid = session('cid');
-		$tid = '123456';//以后会改的
+		$tid = session('username');
 		
 		//检查是否有必要上传
 		$Bank = D('Bank');

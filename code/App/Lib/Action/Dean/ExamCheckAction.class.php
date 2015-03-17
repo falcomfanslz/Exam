@@ -50,6 +50,7 @@ class ExamCheckAction extends CheckAction {
 	*/
 	public function download($bid=-1){
 		if($bid == -1) $this->redirect('Dean/ExamCheck/index');
+		//准备试卷基本信息
 		$Bank = D('Bankview');
 		$bank = $Bank->find($bid);
 		
@@ -59,6 +60,9 @@ class ExamCheckAction extends CheckAction {
 		$path = './Uploads/'.$bank['cid'].'/'.$bank['tid'].'/'.$bank['savename'];
 		$filename = $bank['id'].'_'.$exam['coursename'].'_'.$bank['teachername'].'.pdf';
 		
-		$this->downloadFile($path,$filename);
+		//修改试卷
+		Vendor('Classes.TCPDF.PDF');
+		$pdf = new PDF();
+		$pdf->edit($path,$filename,'哈尔滨理工大学',$bank['teachername'],$exam['deanname'],$exam['systemname'],'2013--2014','1','B',$exam['coursename'],$exam['classname']);
 	}
 }

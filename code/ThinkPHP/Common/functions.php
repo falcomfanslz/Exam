@@ -823,7 +823,7 @@ function think_filter(&$value){
 ** 返回值：		是否更改
 */
 function change_status($status = ''){
-	if($status !== ''){
+	if($status != ''){
 		$webconfig = F('webconfig','','./App/Conf/');
 		$webconfig['SYSTEM_STATUS'] = $status;
 		F('webconfig',$webconfig,'./App/Conf/');
@@ -841,4 +841,45 @@ function change_status($status = ''){
 function get_status(){
 	$webconfig = F('webconfig','','./App/Conf/');
 	return $webconfig['SYSTEM_STATUS'];
+}
+/* 方法名：		get_statusName
+** 方法说明：	获得当前系统状态名称
+** 参数：		无
+** 返回值：		当前系统状态名称
+*/
+function get_statusName(){
+	$systemStatus = get_status();
+	$webconfig = F('webconfig','','./App/Conf/');
+	return $webconfig['SYSTEM_STATUS_NAME'][$systemStatus];
+}
+/* 方法名：		get_statusNameById
+** 方法说明：	获得当前系统状态名称
+** 参数：		$_needStatus 系统需要状态
+** 返回值：		当前系统状态名称
+*/
+function get_statusNameById($_needStatus){
+	$webconfig = F('webconfig','','./App/Conf/');
+	return $webconfig['SYSTEM_STATUS_NAME'][$_needStatus];
+}
+/* 方法名：		status_check
+** 方法说明：	查看当前状态是否符合
+** 参数：		$_needStatus 系统需要状态
+** 返回值：		返回布尔值
+*/
+function status_check($_needStatus=''){
+	$flag = false;
+	$systemStatus = get_status();
+	if($_needStatus==$systemStatus){
+		$flag = true;
+	}
+	return $flag;
+}
+/* 方法名：		status_error
+** 方法说明：	显示系统状态错误提示
+** 参数：		系统需要状态
+** 返回值：		系统状态错误提示
+*/
+function status_error($_needStatus=''){
+	$webconfig = F('webconfig','','./App/Conf/');
+	return $webconfig['SYSTEM_STATUS_ERROR'].get_statusNameById($_needStatus);
 }

@@ -4,7 +4,7 @@
 ** 位置：		Action
 ** 作者：		李卓
 ** 更新时间： 	2015/1/13
-** 更新原因：	第一次写入
+** 更新原因：	增加了系统状态
 */
 class BaseAction extends Action{
 	/* 方法名：		_initialize
@@ -18,6 +18,7 @@ class BaseAction extends Action{
 			$this->redirect('Home/Login/index');
         }*/
 	}
+	
 	/* 方法名：		upload
 	** 方法说明：	网站的上传方法
 	** 参数：		$savepath 文件存储地址 $type 文件格式
@@ -75,7 +76,7 @@ class BaseAction extends Action{
 		$fileinfo = $this->upload('','xls');
 
 		$res = $this->read ( $fileinfo[0]['savepath'] . $fileinfo[0]['savename'] );
-		//读取完了就删除掉这个文件（过河拆桥？）
+		//读取完了就删除掉这个文件
 		unlink( $fileinfo[0]['savepath'] . $fileinfo[0]['savename'] );
 		foreach ( $res as $k => $v ) {
 			if ($k != 0){

@@ -7,4 +7,16 @@
 ** 更新原因：	第一次写入
 */
 class CheckAction extends BaseAction {
+	/* 方法名：		_initialize
+	** 方法说明：	所有类的构造函数
+	** 参数：		无
+	** 返回值：		无
+	*/
+    public function _initialize(){
+		//用来检查当前用户的合法性
+        $type = Session('type');
+		if($type!=2){
+			$this->redirect('Home/Login/index');
+		}
+	}
 }
