@@ -14,7 +14,19 @@ class ExamCheckAction extends CheckAction {
 	*/
     public function index(){
 		$Need = D('Needview');
-		$this->data = $Need->where('sid=1 and status<=5')->select();//编号暂时是固定的
+		$this->data = $Need->where('sid='.session('sid'))->select();
+		$this->display();
+    }
+	/* 方法名：		view
+	** 方法说明：	显示课程的详细信息
+	** 参数：		无
+	** 返回值：		无
+	*/
+    public function view($id = -1){
+		$Exam = D('Examview');
+		$Bank = D('Bankview');
+		$this->data = $Exam->where("cid=$id")->find();
+		$this->bank = $Bank->where("cid=$id and (status=2 or status=3 or status=4)")->select();
 		$this->display();
     }
 	/* 方法名：		check
@@ -23,25 +35,31 @@ class ExamCheckAction extends CheckAction {
 	** 返回值：		无
 	*/
 	public function check($operate=-1,$id=-1){
-		if($operate == -1) $this->redirect('Dean/ExamCheck/index');
-		if($bid == -1) $this->redirect('Dean/ExamCheck/index');
-		
 		//审核操作
 		if($operate==1){
-			$status = 5;
-		}else if($operate==0){
 			$status = 4;
+		}else if($operate==0){
+			$status = 1;
 		}else{
 			$status = 0;
 		}
 		
-		//保存设置
 		$Bank = D('Bank');
-		$data['status'] = $status;
-		$Bank->where('id='.$id)->save($data);
-		
-		
-		$this->redirect('Dean/ExamCheck/index');
+		$Arrangement = D('Arrangement');
+		//查询当前试卷信息
+		$bank = $Bank->where('id='.$id)->find();
+		//查询当前课程状态，如果管理员已同意考试，则系主任无权修改评审信息
+		$arrangement = $Arrangement->where('cid='.$bank['cid'])->find();
+		if($arrangement['status']!=0){
+			$this->error('考试已经开始，无法修改审核信息');
+		}else{
+			//将审核信息录入数据库
+			$examnumber = $Bank->where('cid='.$bank['cid'].'and tid='.$bank['tid']);
+			$data['status'] = $status;
+			$Bank->where('id='.$id)->save($data);
+
+			$this->redirect('Dean/ExamCheck/view',array('id'=>$bank['cid']));
+		}
 	}
 	/* 方法名：		download
 	** 方法说明：	下载试卷的方法
@@ -49,7 +67,6 @@ class ExamCheckAction extends CheckAction {
 	** 返回值：		无
 	*/
 	public function download($bid=-1){
-		if($bid == -1) $this->redirect('Dean/ExamCheck/index');
 		//准备试卷基本信息
 		$Bank = D('Bankview');
 		$bank = $Bank->find($bid);
@@ -59,10 +76,9 @@ class ExamCheckAction extends CheckAction {
 		
 		$path = './Uploads/'.$bank['cid'].'/'.$bank['tid'].'/'.$bank['savename'];
 		$filename = $bank['id'].'_'.$exam['coursename'].'_'.$bank['teachername'].'.pdf';
-		
 		//修改试卷
 		Vendor('Classes.TCPDF.PDF');
 		$pdf = new PDF();
-		$pdf->edit($path,$filename,'哈尔滨理工大学',$bank['teachername'],$exam['deanname'],$exam['systemname'],'2013--2014','1','B',$exam['coursename'],$exam['classname']);
+		$pdf->edit($path,$filename,'哈尔滨理工大学',$bank['teachername'],'',$exam['systemname'],'2013--2014','1','B',$exam['coursename'],$exam['classname']);
 	}
 }

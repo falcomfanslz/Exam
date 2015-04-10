@@ -27,9 +27,23 @@ class ExamAction extends CheckAction {
 		$Examview = D('Examview'); // 实例化Data数据模型	 
 		$this->data = $Examview->where('cid='.$id)->find();
 		
-		$Needview = D('Needview');
-		$this->need = $Needview->where('cid='.$id)->order('cid')->select();
+		$Bankview = D('Bankview');
+		$this->need = $Bankview->where("cid=$id and (status=3 or status=4 or status=5)")->order('cid')->select();
+		
+		$Teacherview = D('Teacherview');
+		$this->teacher = $Teacherview->where("cid=$id")->select();
 		
 		$this->display();
+    }
+	/* 方法名：		pass
+	** 方法说明：	该门考试可以打印
+	** 参数：		$cid
+	** 返回值：		无
+	*/
+    public function pass($cid=-1){
+		$Arrangement = D('Arrangement');
+		$data['status'] = 1;
+		$Arrangement->where("cid=$cid")->save($data);
+		$this->redirect('Admin/Exam/view',array('id' => $cid));
     }
 }

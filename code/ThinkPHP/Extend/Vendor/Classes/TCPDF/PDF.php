@@ -66,7 +66,6 @@ class PDF extends FPDI
 			//第一页加上考试科目，时间，分数及班级信息
 			if($i==1){
 				$this->SetFont('stsongstdlight', '', 13);
-				//$this->SetY(30);
 				$this->SetX(35);
 				$this->Cell(0, 0, '考试科目：'.$CourseName.'   考试时间：100分钟  试卷总分100分',0, true, '');	
 				$this->SetX(35);

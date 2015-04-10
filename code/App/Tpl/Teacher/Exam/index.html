@@ -26,11 +26,7 @@
 			<th width="15%">考试名称</th>
 			<th width="10%">所属系部</th>
 			<th width="25%">考试班级</th>
-			<th width="7%">考试人数</th>
-			<th width="7%">试卷状态</th>
-			<th width="7%">试卷编号</th>
-			<th width="12%">更新时间</th>
-			<th width="10%">操作</th>
+			<th width="7%">有效份数</th>
 
         </tr>    	
     </thead>
@@ -42,11 +38,7 @@
 			<td><a href="__APP__/Teacher/Exam/view/id/{$vo.cid}">{$vo.coursename}</a></td>
 			<td>{$vo.systemname}</td>
 			<td>{$vo.classname}</td>
-			<td>{$vo.classnumber}</td>
-			<td>{$vo.status}</td>
-			<td>{$vo.bankid}</td>
-			<td>{$vo.updatetime}</td>
-			<td><a href="__APP__/Teacher/Exam/add/id/{$vo.cid}">添加</td>
+			<td>{$vo.examnumber}</td>
         </tr>
 	</volist>
     </tbody>

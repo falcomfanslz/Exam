@@ -15,8 +15,8 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-    <li><a href="__APP__/Admin/Exam/index">考试管理</a></li>
-    <li><a href="__APP__/Admin/Exam/view/id/{$data.cid}">{$data.coursename}</a></li>
+    <li><a href="__APP__/Dean/ExamCheck/index">考试管理</a></li>
+    <li><a href="__APP__/Dean/ExamCheck/view/id/{$data.cid}">{$data.coursename}</a></li>
     </ul>
     </div>
 	<ul class="forminfo">
@@ -45,12 +45,12 @@
 			<span>{$data.classnumber}</span>
 		</li>
 		<li>
-			<label>项目状态</label>
+			<label>考试状态</label>
 			<span>
 			<switch name="data.status" id="type">
 				<case value="0">准备考试阶段</case>
-				<case value="1">可以打印状态</case>
-				<case value="2">已打印状态</case>
+				<case value="1">可以打印阶段</case>
+				<case value="2">已打印阶段</case>
 				<default />出错！
 			</switch></span>
 		</li>
@@ -62,19 +62,25 @@
         <th width="10%">试卷编号</th>
         <th width="20%">存储文件名</th>
         <th width="25%">教师编号</th>
-        <th width="25%">教师姓名</th>
+        <th width="15%">教师姓名</th>
         <th width="20%">修改时间</th>
+        <th width="10%">操作</th>
         </tr>    	
     </thead>
     
     <tbody>
-	<volist id="vo" name="need">
+	<volist id="vo" name="bank">
     	<tr class="status{$vo.status}">
-        <td>{$vo.id}</td>
-        <td>{$vo.savename}</td>
-        <td>{$vo.tid}</td>
-        <td>{$vo.teachername}</td>
-        <td>{$vo.updatetime}</td>
+			<td>{$vo.id}</td>
+			<td>{$vo.savename}</td>
+			<td>{$vo.tid}</td>
+			<td>{$vo.teachername}</td>
+			<td>{$vo.updatetime}</td>
+			<td>
+				<a href="__APP__/Dean/ExamCheck/check/operate/1/id/{$vo.id}">合格</a>
+				<a href="__APP__/Dean/ExamCheck/download/bid/{$vo.id}">预览</a>
+				<a href="__APP__/Dean/ExamCheck/check/operate/0/id/{$vo.id}">不合格</a>
+			</td>
         </tr>
 	</volist>
     </tbody>
@@ -83,32 +89,7 @@
     
     
     </table>
-	
-	<table class="filetable">
     
-    <thead>
-    	<tr>
-        <th width="10%">教师编号</th>
-        <th width="20%">教师姓名</th>
-        <th width="25%">试卷有效份数</th>
-        </tr>    	
-    </thead>
-    
-    <tbody>
-	<volist id="vo" name="teacher">
-    	<tr>
-        <td>{$vo.tid}</td>
-        <td>{$vo.teachername}</td>
-        <td>{$vo.examnumber}</td>
-        </tr>
-	</volist>
-    </tbody>
-    
-    
-    
-    
-    </table>
-    <a href="__APP__/Admin/Exam/pass/cid/{$data.cid}"><input type="button" class="btn" value="允许考试"/></a>
     
     
    

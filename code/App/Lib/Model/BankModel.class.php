@@ -15,7 +15,7 @@ class BankModel extends BaseModel {
 	public function extract($cid){
 		$flag = false;
 		//从数据库中随机查询一条试卷数据
-		$where = "where status=5 and cid=$cid";//搜索条件
+		$where = "where (status=4 or status=3) and cid=$cid";//搜索条件
 		$bankdata = $this->query("
 			SELECT *
 			FROM exam_bank AS t1 
@@ -30,13 +30,13 @@ class BankModel extends BaseModel {
 			$this->startTrans();//开启事务
 			//课程信息修改
 			$Arrangement = D('Arrangement');
-			$arrangement['status'] = 1;
+			$arrangement['status'] = 2;
 			$arrangement['bid'] = $bankdata[0]['id'];
 			$result1 = $Arrangement->where('cid='.$cid)->save($arrangement);
 			//试卷信息修改
 			$Bank = D('Bank');
 			$bank['id'] = $bankdata[0]['id'];
-			$bank['status'] = 6;
+			$bank['status'] = 5;
 			$result2 = $Bank->save($bank);
 			if($result1!=false&&$result2!=false){
 				$this->commit();

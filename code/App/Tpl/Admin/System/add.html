@@ -12,8 +12,8 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-	<li><a href="__APP__/Admin/Arrangement/index">教学计划管理</a></li>
-	<li><a href="__APP__/Admin/Arrangement/add">添加教学计划</a></li>
+	<li><a href="__APP__/Admin/System/index">系部管理</a></li>
+    <li><a href="__APP__/Admin/System/add">添加系部信息</a></li>
     </ul>
     </div>
     
@@ -21,13 +21,15 @@
     
     <div class="formtitle"><span>基本信息</span></div>
     
-	<form action="__APP__/Admin/Arrangement/upload_xls" method="post" enctype="multipart/form-data">
+	<form action="__APP__/Admin/System/Insert" method="post">
     <ul class="forminfo">
-	<li><label>上传文件</label><input type="file" name="upload_file" accept=".xls"/></li>
-	<input type="hidden" name="table_name" value="Arrangement"/>
-    <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认保存"/></li>
+    <li><label>系部编号</label><input name="id" type="text" class="dfinput" /></li>
+    <li><label>系部名称</label><input name="name" type="text" class="dfinput"/></li>
+   
+    <li><label>&nbsp;</label><input type="submit" class="btn" value="确认保存"/></li>
     </ul>
 	</form>
+    
     
     </div>
 

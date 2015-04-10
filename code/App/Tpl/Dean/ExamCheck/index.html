@@ -25,13 +25,9 @@
 			<th width="7%">课程编号</th>
 			<th width="15%">考试名称</th>
 			<th width="10%">所属系部</th>
-			<th width="25%">考试班级</th>
-			<th width="7%">考试人数</th>
-			<th width="7%">试卷状态</th>
-			<th width="7%">试卷编号</th>
-			<th width="12%">更新时间</th>
-			<th width="10%">操作</th>
-
+			<th width="18%">考试班级</th>
+			<th width="7%">有效份数</th>
+			<th width="7%">需要份数</th>
         </tr>    	
     </thead>
     
@@ -39,18 +35,11 @@
 	<volist id="vo" name="data">
     	<tr class="status{$vo.status}">
 			<td>{$vo.cid}</td>
-			<td><a href="__APP__/TeacherCheck/Exam/view/id/{$vo.cid}">{$vo.coursename}</a></td>
+			<td><a href="__APP__/Dean/ExamCheck/view/id/{$vo.cid}">{$vo.coursename}</a></td>
 			<td>{$vo.systemname}</td>
 			<td>{$vo.classname}</td>
-			<td>{$vo.classnumber}</td>
-			<td>{$vo.status}</td>
-			<td>{$vo.bankid}</td>
-			<td>{$vo.updatetime}</td>
-			<td>
-				<a href="__APP__/Dean/ExamCheck/download/bid/{$vo.bankid}">下载</a>
-				<a href="__APP__/Dean/ExamCheck/check/operate/1/id/{$vo.bankid}">合格</a>
-				<a href="__APP__/Dean/ExamCheck/check/operate/0/id/{$vo.bankid}">不合格</a>
-			</td>
+			<td>{$vo.examnumber}</td>
+			<td>{$vo.neednumber}</td>
         </tr>
 	</volist>
     </tbody>

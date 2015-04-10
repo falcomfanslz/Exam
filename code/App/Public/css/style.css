@@ -305,7 +305,9 @@ h2{font-weight:normal;}
 .sub span{display:none;}
 
 /*试卷状态*/
-.filetable .status0{background:#FFF8A5;}
-.filetable .status1{background:#6BC8F2;}
-.filetable .status2{background:#E61C64;}
-.filetable .status3{background:#FFF8A5;}
+.filetable .status0{background:#CDCD00;}/*黄色*/
+.filetable .status1{background:#CD0000;}/*红色*/
+.filetable .status2{background:#FFFFFF;}/*白色*/
+.filetable .status3{background:#66CDAA;}/*绿色*/
+.filetable .status4{background:#4F94CD;}/*蓝色*/
+.filetable .status5{background:#8A2BE2;}/*紫色*/

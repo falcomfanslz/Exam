@@ -24,27 +24,50 @@ class ExamAction extends CheckAction {
 	*/
     public function extract($id=-1){
 		if($id == -1) $this->redirect('Printer/Exam/index');//保护	
+		$Arrangement = D('Arrangement');
 		$Bank = D('Bank'); 
 		$Examview = D('Examview');
 		$Bankview = D('Bankview');
 		
-		//判断是否已经抽好试卷
-		$examdata = $Examview->where('cid='.$id)->find();
-		if($examdata['status']==0){
-			//试卷状态改变操作
-			$bid = $Bank->extract($id);
+		$arrangement = $Arrangement->where("cid=$id")->find();
+		if($arrangement['status']==0){
+			$this->error('考试还未开始');
 		}else{
-			$bid = $examdata['bid'];
+			//判断是否已经抽好试卷
+			$examdata = $Examview->where('cid='.$id)->find();
+			if($examdata['status']==1){
+				//试卷状态改变操作
+				$bid = $Bank->extract($id);
+			}else{
+				$bid = $examdata['bid'];
+			}
+			if($bid){
+				$this->download($bid);
+			}else{
+				$this->error('操作错误');
+			}
 		}
-		if($bid){
-			//试卷名称初始化
-			$bank = $Bankview->where('id='.$bid)->find();
-			$exam = $Examview->where('cid='.$bank['cid'])->find();
-			$path = './Uploads/'.$bank['cid'].'/'.$bank['tid'].'/'.$bank['savename'];
-			$filename = $bank['id'].'_'.$exam['coursename'].'_'.$bank['teachername'].'.pdf';
-			$this->downloadFile($path,$filename);
-		}else{
-			$this->error('操作错误');
-		}
+		
+		
     }	
+	/* 方法名：		download
+	** 方法说明：	下载试卷的方法
+	** 参数：		$bid 试卷编号
+	** 返回值：		无
+	*/
+	public function download($bid=-1){
+		//准备试卷基本信息
+		$Bank = D('Bankview');
+		$bank = $Bank->find($bid);
+		
+		$Exam = D('Examview');
+		$exam = $Exam->where('cid='.$bank['cid'])->find();
+		
+		$path = './Uploads/'.$bank['cid'].'/'.$bank['tid'].'/'.$bank['savename'];
+		$filename = $bank['id'].'_'.$exam['coursename'].'_'.$bank['teachername'].'.pdf';
+		//修改试卷
+		Vendor('Classes.TCPDF.PDF');
+		$pdf = new PDF();
+		$pdf->edit($path,$filename,'哈尔滨理工大学',$bank['teachername'],$exam['deanname'],$exam['systemname'],'2013--2014','1','B',$exam['coursename'],$exam['classname']);
+	}
 }

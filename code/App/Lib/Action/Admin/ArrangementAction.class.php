@@ -1,41 +1,43 @@
 <?php
-/* ÀàÃû£º		ArrangementAction
-** ÀàËµÃ÷£º		¹ØÓÚ¹ÜÀíÔ±²Ù×÷½ÌÑ§¼Æ»®µÄÀà
-** Î»ÖÃ£º		Action/Admin
-** ×÷Õß£º		Àî×¿
-** ¸üÐÂÊ±¼ä£º 	2015/1/13
-** ¸üÐÂÔ­Òò£º	µÚÒ»´ÎÐ´Èë
+/* ç±»åï¼š		ArrangementAction
+** ç±»è¯´æ˜Žï¼š		å…³äºŽç®¡ç†å‘˜æ“ä½œæ•™å­¦è®¡åˆ’çš„ç±»
+** ä½ç½®ï¼š		Action/Admin
+** ä½œè€…ï¼š		æŽå“
+** æ›´æ–°æ—¶é—´ï¼š 	2015/1/13
+** æ›´æ–°åŽŸå› ï¼š	ç¬¬ä¸€æ¬¡å†™å…¥
 */
 class ArrangementAction extends CheckAction {
-	/* ·½·¨Ãû£º		_initialize
-	** ·½·¨ËµÃ÷£º	ËùÓÐÀàµÄ¹¹Ôìº¯Êý
-	** ²ÎÊý£º		ÎÞ
-	** ·µ»ØÖµ£º		ÎÞ
+	/* æ–¹æ³•åï¼š		_initialize
+	** æ–¹æ³•è¯´æ˜Žï¼š	æ‰€æœ‰ç±»çš„æž„é€ å‡½æ•°
+	** å‚æ•°ï¼š		æ— 
+	** è¿”å›žå€¼ï¼š		æ— 
 	*/
     public function _initialize(){
-		//ÓÃÀ´¼ì²éµ±Ç°ÓÃ»§µÄºÏ·¨ÐÔ
+		//ç”¨æ¥æ£€æŸ¥å½“å‰ç”¨æˆ·çš„åˆæ³•æ€§
         /*if(!$this->checkSession()){
 			$this->redirect('Home/Login/index');
         }*/
 	}
-	/* ·½·¨Ãû£º		index
-	** ·½·¨ËµÃ÷£º	ÏÔÊ¾½ÌÑ§¼Æ»®Ö÷Ò³
-	** ²ÎÊý£º		ÎÞ
-	** ·µ»ØÖµ£º		ÎÞ
+	/* æ–¹æ³•åï¼š		index
+	** æ–¹æ³•è¯´æ˜Žï¼š	æ˜¾ç¤ºæ•™å­¦è®¡åˆ’ä¸»é¡µ
+	** å‚æ•°ï¼š		æ— 
+	** è¿”å›žå€¼ï¼š		æ— 
 	*/
     public function index(){
-		$Arrangementview = D('Arrangementview'); // ÊµÀý»¯DataÊý¾ÝÄ£ÐÍ	 
+		$Arrangementview = D('Arrangementview'); // å®žä¾‹åŒ–Dataæ•°æ®æ¨¡åž‹	 
 		$this->data = $Arrangementview->select();
 		$this->display();
     }
-	/* ·½·¨Ãû£º		add
-	** ·½·¨ËµÃ÷£º	Í¨¹ýÎÄ¼þ²åÈë½ÌÑ§¼Æ»®ÐÅÏ¢
-	** ²ÎÊý£º		ÎÞ
-	** ·µ»ØÖµ£º		ÎÞ
+	/* æ–¹æ³•åï¼š		upload_xls
+	** æ–¹æ³•è¯´æ˜Žï¼š	é€šè¿‡æ–‡ä»¶æ’å…¥æ•™å­¦è®¡åˆ’ä¿¡æ¯
+	** å‚æ•°ï¼š		æ— 
+	** è¿”å›žå€¼ï¼š		æ— 
 	*/
-    /*public function insert(){
-		$Arrangementview = D('Arrangementview'); // ÊµÀý»¯DataÊý¾ÝÄ£ÐÍ	 
-		$this->data = $Arrangementview->select();
-		$this->display();
-    }*/
+    public function upload_xls(){
+		//æ¸…ç©ºåŽŸé…è¯¾è¡¨
+		$Arrangement = D('Arrangement');
+		$Arrangement->where('1=1')->delete();
+		//æ‰§è¡Œçˆ¶ç±»æ–¹æ³•
+		parent::upload_xls();
+    }
 }

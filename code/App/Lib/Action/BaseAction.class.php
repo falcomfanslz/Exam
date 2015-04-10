@@ -13,10 +13,13 @@ class BaseAction extends Action{
 	** 返回值：		无
 	*/
     public function _initialize(){
-		//用来检查当前用户的合法性
-        /*if(!$this->checkSession()){
-			$this->redirect('Home/Login/index');
-        }*/
+		$Status = D('Status');
+		$data = $Status->where("usertype = '".GROUP_NAME."' and classname = '".MODULE_NAME."' and actionname = '".ACTION_NAME."'")->find();
+		if($data){
+			if($data['istrue']!=1){
+				$this->error('该方法在现阶段无法使用，错误状态为：'.GROUP_NAME.'/'.MODULE_NAME.'/'.ACTION_NAME);
+			}
+		}
 	}
 	
 	/* 方法名：		upload
@@ -120,6 +123,19 @@ class BaseAction extends Action{
 			exit; 
 		}else{
 			$this->error('无法下载！');
+		}
+	}
+	/* 方法名：		checkStatus
+	** 方法说明：	检查当前系统状态是否支持本操作
+	** 参数：		无
+	** 返回值：		无
+	*/
+	public function checkStatus(){
+		//获取当前系统状态
+		$status = get_status();
+		//如果当前状态不允许此操作就跳出
+		if($status!=$this->_needStatus){
+			$this->error(status_error($this->_needStatus));
 		}
 	}
 }

@@ -37,6 +37,7 @@ class LoginAction extends Action {
 			if($data['password']===$password){
 				//用户名和密码都没有问题
 				session('username',$username);
+				session('sid',$data['sid']);
 				session('type',$type);
 				$this->redirect($typelist[$type].'/Index/index');
 			}else{

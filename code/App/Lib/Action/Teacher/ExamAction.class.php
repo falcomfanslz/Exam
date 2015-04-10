@@ -14,7 +14,19 @@ class ExamAction extends CheckAction {
 	*/
     public function index(){
 		$Need = D('Needview');
-		$this->data = $Need->where('tid=11111 and (status<5 or status is NULL)')->select();//编号暂时是固定的
+		$this->data = $Need->where('tid='.session('username'))->select();
+		$this->display();
+    }
+	/* 方法名：		view
+	** 方法说明：	显示课程的详细信息
+	** 参数：		无
+	** 返回值：		无
+	*/
+    public function view($id = -1){
+		$Exam = D('Examview');
+		$Bank = D('Bankview');
+		$this->data = $Exam->where("cid=$id")->find();
+		$this->bank = $Bank->where("cid=$id and tid=".session('username'))->select();
 		$this->display();
     }
 	/* 方法名：		add
@@ -23,7 +35,6 @@ class ExamAction extends CheckAction {
 	** 返回值：		无
 	*/
 	public function add($id = -1){
-		if($id == -1) $this->redirect('Teacher/Exam/index');//保护	
 		session('cid',$id);
 		$Course = D('Courseview');
 		$this->course = $Course->where('id='.$id)->find();
@@ -37,10 +48,9 @@ class ExamAction extends CheckAction {
 	public function upload_pdf(){
 		$cid = session('cid');
 		$tid = session('username');
-		
 		//检查是否有必要上传
-		$Bank = D('Bank');
-		if($Bank->where("cid=$cid and tid=$tid and status<5")->count()>=2){
+		$Bank = D('Bank');		
+		if($Bank->where("cid=$cid and tid=$tid and (status=2 or status=3 or status=4)")->count()>=2){
 			$this->error('无法上传，请等待审核，或者删除试卷');
 		}
 		
@@ -50,7 +60,7 @@ class ExamAction extends CheckAction {
 		$data['cid'] = $cid;
 		$data['tid'] = $tid;
 		$data['savename'] = $fileinfo[0]['savename'];
-		$data['status'] = 0;
+		$data['status'] = 2;
 		$data['updatetime'] = date("Y-m-d H:i:s");
 		$result = $Bank->add($data);
 		if($result){
@@ -59,5 +69,43 @@ class ExamAction extends CheckAction {
 			unlink($fileinfo[0]['savepath'].$fileinfo[0]['savename']);
 			$this->error('上传失败');
 		}
+	}
+	/* 方法名：		delete
+	** 方法说明：	教师自己删除试卷
+	** 参数：		无
+	** 返回值：		无
+	*/
+	public function delete($id = -1){
+		$Bank = D('Bank');
+		$data['status'] = 0;
+		$Bank->where("id=$id")->save($data);
+		$this->redirect('Teacher/Exam/index');
+	}
+	/* 方法名：		download
+	** 方法说明：	教师预览试卷的方法
+	** 参数：		$bid 试卷编号
+	** 返回值：		无
+	*/
+	public function download($id=-1){
+		//准备试卷基本信息
+		$Bank = D('Bankview');
+		$bank = $Bank->find($id);
+		
+		$Exam = D('Examview');
+		$exam = $Exam->where('cid='.$bank['cid'])->find();
+		
+		$path = './Uploads/'.$bank['cid'].'/'.$bank['tid'].'/'.$bank['savename'];
+		$filename = $bank['id'].'_'.$exam['coursename'].'_'.$bank['teachername'].'.pdf';
+		
+		$file = fopen($path,"r"); // 打开文件
+		// 输入文件标签
+		Header("Content-type: application/octet-stream");
+		Header("Accept-Ranges: bytes");
+		Header("Accept-Length: ".filesize($path));
+		Header("Content-Disposition: attachment; filename=" . $filename);
+		// 输出文件内容
+		echo fread($file,filesize($path));
+		fclose($file);
+		exit();
 	}
 }

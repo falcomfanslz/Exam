@@ -11,5 +11,6 @@ return array (
 							'__PUBLIC__' => __ROOT__.'/App/Public', ),
 		'APP_GROUP_LIST' => 'Teacher,Home,Admin,Printer,Dean',
 		'DEFAULT_GROUP' => 'Home',
+		'DEFAULT_CHARSET' => 'UTF-8'
 	);
 ?>
