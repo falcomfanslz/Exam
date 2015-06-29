@@ -1,7 +1,7 @@
 <?php
 /* 类名：		CheckAction
 ** 类说明：		管理员操作里所有类的基类
-** 位置：		Action/Dean
+** 位置：		Action/Admin
 ** 作者：		李卓
 ** 更新时间： 	2015/1/27
 ** 更新原因：	第一次写入
@@ -16,7 +16,7 @@ class CheckAction extends BaseAction {
 		parent::_initialize();
 		//用来检查当前用户的合法性
         $type = Session('type');
-		if($type!=0){
+		if($type!=0||$type==null){//php里0==null，所以这么写了
 			$this->redirect('Home/Login/index');
 		}
 	}

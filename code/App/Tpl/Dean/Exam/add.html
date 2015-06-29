@@ -12,8 +12,8 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-	<li><a href="__APP__/Admin/Arrangement/index">教学计划管理</a></li>
-	<li><a href="__APP__/Admin/Arrangement/add">添加教学计划</a></li>
+	<li><a href="__APP__/Dean/Exam/index">考试管理</a></li>
+	<li><a href="__APP__/Dean/Exam/add/id/{$course.id}">{$course.name}</a></li>
     </ul>
     </div>
     
@@ -21,15 +21,14 @@
     
     <div class="formtitle"><span>基本信息</span></div>
     
-	<form action="__APP__/Admin/Arrangement/upload_xls" method="post" enctype="multipart/form-data">
+	<form action="__APP__/Dean/Exam/upload_pdf" method="post" enctype="multipart/form-data">
     <ul class="forminfo">
-	<li><label>上传文件</label><input type="file" name="upload_file" accept=".xls"/></li>
+	<li><label>上传文件</label><input type="file" name="upload_file" accept=".pdf"/></li>
 	<input type="hidden" name="table_name" value="Arrangement"/>
     <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认保存"/></li>
-	<li><label>&nbsp;</label><a href="__APP__/Admin/Arrangement/download_example/filename/Arrangement"><input name="" type="button" class="btn" value="下载模板"/></a></li>
-	<li><label>请注意，上传教学计划信息时会将原来的信息清除</label></li>
     </ul>
 	</form>
+    
     
     </div>
 

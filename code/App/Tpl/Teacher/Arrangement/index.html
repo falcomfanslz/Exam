@@ -15,28 +15,38 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-	<li><a href="__APP__/Teacher/Exam/index">考试管理</a></li>
+	<li><a href="__APP__/Teacher/Arrangement/index">教学计划管理</a></li>
     </ul>
     </div>
     <table class="filetable">
     
     <thead>
     	<tr>
+			<th width="7%">编号</th>
 			<th width="7%">课程编号</th>
-			<th width="15%">考试名称</th>
-			<th width="10%">所属系部</th>
-			<th width="32%">考试班级</th>
+			<th width="15%">课程名称</th>
+			<th width="7%">教师编号</th>
+			<th width="10%">教师名称</th>
+			<th width="15%">所属系部</th>
+			<th width="15%">班级名称</th>
+			<th width="10%">班级人数</th>
+			<th width="14%">更新时间</th>
 
         </tr>    	
     </thead>
     
     <tbody>
 	<volist id="vo" name="data">
-    	<tr class="status{$vo.status}">
+    	<tr>
+			<td>{$vo.id}</td>
 			<td>{$vo.cid}</td>
-			<td><a href="__APP__/Teacher/Exam/view/id/{$vo.cid}">{$vo.coursename}</a></td>
+			<td>{$vo.coursename}</td>
+			<td>{$vo.tid}</td>
+			<td>{$vo.teachername}</td>
 			<td>{$vo.systemname}</td>
 			<td>{$vo.classname}</td>
+			<td>{$vo.classnumber}</td>
+			<td>{$vo.updatetime}</td>
         </tr>
 	</volist>
     </tbody>

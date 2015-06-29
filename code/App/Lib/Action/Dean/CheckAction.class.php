@@ -13,6 +13,7 @@ class CheckAction extends BaseAction {
 	** 返回值：		无
 	*/
     public function _initialize(){
+		parent::_initialize();
 		//用来检查当前用户的合法性
         $type = Session('type');
 		if($type!=1){

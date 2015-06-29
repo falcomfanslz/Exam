@@ -7,11 +7,6 @@
 ** 更新原因：	第一次写入
 */
 class CourseAction extends CheckAction {
-	/* 属性名：		_needStatus
-	** 属性说明：	当前类需要的状态
-	*/
-	protected $_needStatus = 0;
-	
 	/* 方法名：		index
 	** 方法说明：	显示课程设计操作主页
 	** 参数：		无
@@ -43,10 +38,9 @@ class CourseAction extends CheckAction {
 	*/
 	public function insert(){
 		//状态检查
-		$this->checkStatus();
 		$Course = D('Course');
 		if($Course->create()) {
-			$result = $Course->add($Course->id);
+			$result = $Course->add_dir($Course->id);
 			if($result) {
 				$this->redirect('Admin/Course/index');
 			}else{
@@ -64,7 +58,6 @@ class CourseAction extends CheckAction {
 	*/
 	public function edit($id = -1){
 		//状态检查
-		$this->checkStatus();
 		$Course = D('Course');
 		$System = D('System');
 		$data=$Course->find($id);
@@ -85,7 +78,6 @@ class CourseAction extends CheckAction {
 	*/
 	public function update(){
 		//状态检查
-		$this->checkStatus();
 		$Course = D('Course');
 		if($Course->create()) {
 			$result = $Course->save();
@@ -106,7 +98,6 @@ class CourseAction extends CheckAction {
 	*/
 	public function delete($id = -1){
 		//状态检查
-		$this->checkStatus();
 		$Course = D('Course');
 		$result = $Course->delete($id);
 		if($result) {
@@ -115,6 +106,21 @@ class CourseAction extends CheckAction {
 			$this->error('删除错误！');
 		}
 
+	}
+	
+	/* 方法名：		classlist
+	** 方法说明：   修改课程默认的考试班级
+	** 参数：		无
+	** 返回值：		无
+	*/
+	public function classlist(){
+		//状态检查
+		$cid = $this->_post('cid');
+		$classlist = $this->_post('classlist');
+		$Course = D('Course');
+		$data['classlist'] = $classlist;
+		$Course->where('id='."'".$cid."'")->save($data);
+		$this->redirect('Admin/Exam/view', array('id'=>$cid), 2,'修改成功');
 	}
 	
 	/* 方法名：		view

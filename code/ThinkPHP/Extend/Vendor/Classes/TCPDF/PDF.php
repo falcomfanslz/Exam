@@ -14,6 +14,8 @@ class PDF extends FPDI
 	var $Year = '';//考试年份
 	var $Term = '';//考试学期
 	var $Type = '';//考试类型(A/B)
+	var $Public = '';//开卷闭卷
+	var $CourseName = '';//考试科目
 
     function Header()
     {
@@ -33,10 +35,10 @@ class PDF extends FPDI
 	** 方法说明：	显示本学期的课程考试信息
 	** 参数：		$path 文件所在路径,$filename 文件保存名称,$SchoolName 学校名称,
 					$TeacherName 教师名称,$DeanName 系主任名称,$SystemName 系部名称,
-					$Year 考试年份,$Term 考试学期,$Type 考试类型(A/B)
+					$Year 考试年份,$Term 考试学期,$Type 考试类型(A/B),$Public 开卷闭卷
 	** 返回值：		无
 	*/
-	public function edit($path,$filename,$SchoolName,$TeacherName,$DeanName,$SystemName,$Year,$Term,$Type,$CourseName,$ClassName){
+	public function edit($path,$filename,$SchoolName,$TeacherName,$DeanName,$SystemName,$Year,$Term,$Type,$CourseName,$ClassName,$Public){
 		//pdf文件基本信息
 		$this->SetMargins(PDF_MARGIN_LEFT, 40, PDF_MARGIN_RIGHT,10);
 		$this->SetAutoPageBreak(true, 40);
@@ -49,6 +51,7 @@ class PDF extends FPDI
 		$this->Year = $Year;
 		$this->Term = $Term;
 		$this->Type = $Type;
+		$this->CourseName = $CourseName;
 		//pdf处理开始
 		$pageCount = $this->setSourceFile($path);
 		for($i = 1;$i<=$pageCount;$i++){
@@ -67,7 +70,7 @@ class PDF extends FPDI
 			if($i==1){
 				$this->SetFont('stsongstdlight', '', 13);
 				$this->SetX(35);
-				$this->Cell(0, 0, '考试科目：'.$CourseName.'   考试时间：100分钟  试卷总分100分',0, true, '');	
+				$this->Cell(0, 0, '考试科目：'.$CourseName.' 考试时间：100分钟  试卷总分100分'.' 考试类型：'.$Public,0, true, '');	
 				$this->SetX(35);
 				$this->Cell(0, 0, '考试班级：'.$ClassName,0, true, '');
 			}

@@ -6,7 +6,7 @@
 ** 更新时间： 	2015/1/12
 ** 更新原因：	第一次写入
 */
-class UserAction extends Action {
+class UserAction extends CheckAction {
 	/* 方法名：		index
 	** 方法说明：	显示用户信息操作主页
 	** 参数：		无
@@ -37,12 +37,14 @@ class UserAction extends Action {
 	public function insert(){
 		$User = D('User');
         if($User->create()) {
+			dump($User->data);
+			/*
 			$result = $User->add();
 			if($result) {
 				$this->redirect('Admin/User/index');
 			}else{
 				$this->error('写入错误！');
-			}
+			}*/
         }else{
             $this->error($User->getError());
         }

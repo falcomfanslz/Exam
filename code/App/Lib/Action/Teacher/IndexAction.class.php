@@ -6,7 +6,7 @@
 ** 更新时间： 	2015/1/16
 ** 更新原因：	第一次写入
 */
-class IndexAction extends Action {
+class IndexAction extends CheckAction {
 	/* 方法名：		index
 	** 方法说明：	显示教师主页
 	** 参数：		无

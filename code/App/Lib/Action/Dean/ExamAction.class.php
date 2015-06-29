@@ -1,7 +1,7 @@
 <?php
 /* 类名：		ExamAction
-** 类说明：		关于教师显示学期考试的方法
-** 位置：		Teacher
+** 类说明：		关于系主任显示学期考试的方法
+** 位置：		Dean
 ** 作者：		李卓
 ** 更新时间： 	2015/1/16
 ** 更新原因：	第一次写入
@@ -65,7 +65,7 @@ class ExamAction extends CheckAction {
 		$data['updatetime'] = date("Y-m-d H:i:s");
 		$result = $Bank->add($data);
 		if($result){
-			$this->redirect('Teacher/Exam/index');
+			$this->redirect('Dean/Exam/index');
 		}else{
 			unlink($fileinfo[0]['savepath'].$fileinfo[0]['savename']);
 			$this->error('上传失败');
@@ -80,7 +80,7 @@ class ExamAction extends CheckAction {
 		$Bank = D('Bank');
 		$data['status'] = 0;
 		$Bank->where("id=$id")->save($data);
-		$this->redirect('Teacher/Exam/index');
+		$this->redirect('Dean/Exam/index');
 	}
 	/* 方法名：		download
 	** 方法说明：	教师预览试卷的方法

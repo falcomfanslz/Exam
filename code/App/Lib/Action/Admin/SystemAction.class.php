@@ -4,7 +4,7 @@
 ** 位置：		Action/Admin
 ** 作者：		商家赫
 */
-class SystemAction extends Action {
+class SystemAction extends CheckAction {
 	/* 方法名：		index
 	** 方法说明：	显示课程设计操作主页
 	** 参数：		无
@@ -15,7 +15,6 @@ class SystemAction extends Action {
 		$this->data = $System->select();
 		$this->display();
     }
-	
 	
 	/* 方法名：		insert
 	** 方法说明：	向数据库插入一条系部信息

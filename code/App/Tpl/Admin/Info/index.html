@@ -12,19 +12,21 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-	<li><a href="__APP__/Teacher/Exam/index">考试管理</a></li>
-	<li><a href="__APP__/Teacher/Exam/add/id/{$course.id}">{$course.name}</a></li>
-    </ul>
+	<li><a href="__APP__/Admin/Info/index">系统信息管理</a></li>
+	</ul>
     </div>
     
     <div class="formbody">
     
     <div class="formtitle"><span>基本信息</span></div>
     
-	<form action="__APP__/Teacher/Exam/upload_pdf" method="post" enctype="multipart/form-data">
+	<form action="__APP__/Admin/Info/update" method="post">
     <ul class="forminfo">
-	<li><label>上传文件</label><input type="file" name="upload_file" accept=".pdf"/></li>
-	<input type="hidden" name="table_name" value="Arrangement"/>
+    <li><label>学校信息</label><input name="school" type="text" class="dfinput" value="{$school}"/></li>
+    <li><label>考试年份</label><input name="year" type="text" class="dfinput" value="{$year}"/></li>
+    <li><label>考试学期</label><input name="term" type="text" class="dfinput" value="{$term}"/></li>
+    <li><label>考试种类</label><input name="type" type="text" class="dfinput" value="{$type}"/></li>
+	<input type="hidden" name="id" value="{$data.id}"/>
     <li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认保存"/></li>
     </ul>
 	</form>

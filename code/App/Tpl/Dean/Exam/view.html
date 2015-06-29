@@ -15,8 +15,8 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-    <li><a href="__APP__/Admin/Exam/index">考试管理</a></li>
-    <li><a href="__APP__/Admin/Exam/view/id/{$data.cid}">{$data.coursename}</a></li>
+    <li><a href="__APP__/Dean/Exam/index">考试管理</a></li>
+    <li><a href="__APP__/Dean/Exam/view/id/{$data.cid}">{$data.coursename}</a></li>
     </ul>
     </div>
 	<ul class="forminfo">
@@ -41,26 +41,17 @@
 			<span>{$data.classname}</span>
 		</li>
 		<li>
-			<label>考试班级(试卷)</label>
-			<span>
-				<form action="__APP__/Admin/Course/classlist" method="post">
-					<input type="text" name="classlist" value="{$classlist}" style="width:400px"/>
-					<input type="hidden" name="cid" value="{$data.cid}"/>
-					<input type="submit" value="确定"/>
-				</form>
-			</span>
-		</li>
-		<li>
 			<label>考试人数</label>
 			<span>{$data.classnumber}</span>
 		</li>
 		<li>
-			<label>项目状态</label>
+			<label>考试状态</label>
 			<span>
 			<switch name="data.status" id="type">
 				<case value="0">准备考试阶段</case>
-				<case value="1">可以打印状态</case>
-				<case value="2">已打印状态</case>
+				<case value="1">已打印状态</case>
+				<case value="2">未通过状态</case>
+				<case value="3">已通过状态</case>
 				<default />出错！
 			</switch></span>
 		</li>
@@ -72,53 +63,41 @@
         <th width="10%">试卷编号</th>
         <th width="20%">存储文件名</th>
         <th width="25%">教师编号</th>
-        <th width="25%">教师姓名</th>
+        <th width="15%">教师姓名</th>
         <th width="20%">修改时间</th>
+        <th width="10%">操作</th>
         </tr>    	
     </thead>
     
     <tbody>
-	<volist id="vo" name="need">
+	<volist id="vo" name="bank">
     	<tr class="status{$vo.status}">
-        <td>{$vo.id}</td>
-        <td>{$vo.savename}</td>
-        <td>{$vo.tid}</td>
-        <td>{$vo.teachername}</td>
-        <td>{$vo.updatetime}</td>
+			<td>{$vo.id}</td>
+			<td>{$vo.savename}</td>
+			<td>{$vo.tid}</td>
+			<td>{$vo.teachername}</td>
+			<td>{$vo.updatetime}</td>
+			<td>
+				<switch name="vo.status" id="type">
+					<case value="2|3"><a href="__APP__/Dean/Exam/delete/id/{$vo.id}">删除</a></case>
+					<default />
+				</switch>
+				<a href="__APP__/Dean/Exam/download/id/{$vo.id}">预览</a>
+			</td>
         </tr>
 	</volist>
+		<tr>
+			<td>
+				<a href="__APP__/Dean/Exam/add/id/{$data.cid}"><input type="button" class="btn" value="添加"/></a>
+			</td>
+		</tr>
     </tbody>
     
     
     
     
     </table>
-	
-	<table class="filetable">
     
-    <thead>
-    	<tr>
-        <th width="10%">教师编号</th>
-        <th width="20%">教师姓名</th>
-        <th width="25%">试卷有效份数</th>
-        </tr>    	
-    </thead>
-    
-    <tbody>
-	<volist id="vo" name="teacher">
-    	<tr>
-        <td>{$vo.tid}</td>
-        <td>{$vo.teachername}</td>
-        <td>{$vo.examnumber}</td>
-        </tr>
-	</volist>
-    </tbody>
-    
-    
-    
-    
-    </table>
-    <a href="__APP__/Admin/Exam/pass/cid/{$data.cid}"><input type="button" class="btn" value="允许考试"/></a>
     
     
    

@@ -28,6 +28,7 @@ class LoginAction extends Action {
 		//初始化参数
 		$username = $this->_post('username');
 		$password = strval($this->_post('password'));//转换成字符串 否则以数字的形式容易出错
+		$password = md5(md5($password));
 		$type = $this->_post('type');
 		$typelist = array('Admin','Dean','Teacher','Printer');
 		//数据实例化
@@ -39,6 +40,9 @@ class LoginAction extends Action {
 				session('username',$username);
 				session('sid',$data['sid']);
 				session('type',$type);
+				$data['id'] = $username;
+				$data['sessionid'] = session_id();
+				$User->save($data);
 				$this->redirect($typelist[$type].'/Index/index');
 			}else{
 				$this->redirect('Home/Login/index','',3,'密码错误');

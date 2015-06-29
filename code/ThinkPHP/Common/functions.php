@@ -883,3 +883,29 @@ function status_error($_needStatus=''){
 	$webconfig = F('webconfig','','./App/Conf/');
 	return $webconfig['SYSTEM_STATUS_ERROR'].get_statusNameById($_needStatus);
 }
+/* 方法名：		get_info
+** 方法说明：	获得系统信息
+** 参数：		$name 信息类型
+** 返回值：		信息
+*/
+function get_info($name){
+	$webconfig = F('webconfig','','./App/Conf/');
+	return $webconfig[$name];
+}
+
+/* 方法名：		set_info
+** 方法说明：	设置系统信息
+** 参数：		$name 信息类型,$info 信息内容
+** 返回值：		是否更改
+*/
+function set_info($name='',$info=''){
+	if($name != ''||$info !=''){
+		$webconfig = F('webconfig','','./App/Conf/');
+		$webconfig[$name] = $info;
+		F('webconfig',$webconfig,'./App/Conf/');
+		$result = true;
+	}else{
+		$result = false;
+	}
+	return $result;
+}

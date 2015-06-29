@@ -29,15 +29,15 @@ class ExamAction extends CheckAction {
 		$Examview = D('Examview');
 		$Bankview = D('Bankview');
 		
-		$arrangement = $Arrangement->where("cid=$id")->find();
+		$arrangement = $Arrangement->where("cid='$id'")->find();
 		if($arrangement['status']==0){
 			$this->error('考试还未开始');
 		}else{
 			//判断是否已经抽好试卷
-			$examdata = $Examview->where('cid='.$id)->find();
+			$examdata = $Examview->where("cid='$id'")->find();
 			if($examdata['status']==1){
 				//试卷状态改变操作
-				$bid = $Bank->extract($id);
+				$bid = $Bank->extract("'".$id."'");
 			}else{
 				$bid = $examdata['bid'];
 			}
@@ -61,13 +61,28 @@ class ExamAction extends CheckAction {
 		$bank = $Bank->find($bid);
 		
 		$Exam = D('Examview');
-		$exam = $Exam->where('cid='.$bank['cid'])->find();
+		$exam = $Exam->where('cid='."'".$bank['cid']."'")->find();
 		
 		$path = './Uploads/'.$bank['cid'].'/'.$bank['tid'].'/'.$bank['savename'];
 		$filename = $bank['id'].'_'.$exam['coursename'].'_'.$bank['teachername'].'.pdf';
+		
+		$Course = D('Course');
+		$course = $Course->find($bank['cid']);
+		
+		//判断考试班级是否修改过
+		$classname = '';
+		if($course['classlist']!=''){
+			$classname = $course['classlist'];
+		}else{
+			$classname = $exam['classname'];
+		}
+		$school = get_info('INFO_SCHOOL');
+		$year = get_info('INFO_YEAR');
+		$term = get_info('INFO_TERM');
+		$type = get_info('INFO_TYPE');
 		//修改试卷
 		Vendor('Classes.TCPDF.PDF');
 		$pdf = new PDF();
-		$pdf->edit($path,$filename,'哈尔滨理工大学',$bank['teachername'],$exam['deanname'],$exam['systemname'],'2013--2014','1','B',$exam['coursename'],$exam['classname']);
+		$pdf->edit($path,$filename,$school,$bank['teachername'],'',$exam['systemname'],$year,$term,$type,$exam['coursename'],$classname,$course['type']);
 	}
 }
